@@ -13,7 +13,7 @@ export function AboutSection() {
             </p>
           </div>
         </MagicCard>
-        <MagicCard mode="orb" className="rounded-2xl">
+        <MagicCard className="rounded-2xl">
           <div className="rounded-2xl p-8">
             <p className="text-sm text-muted-foreground">Tagline</p>
             <h3 className="mt-3 text-2xl font-semibold">Built right. Every time.</h3>

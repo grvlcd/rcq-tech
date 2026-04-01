@@ -85,13 +85,20 @@ export function MagicCard(props: MagicCardProps) {
 
   const resolvedGradientColor = useMemo(() => {
     if (gradientColor) return gradientColor
-    return isDarkTheme ? "#262626" : "rgba(139, 92, 246, 0.28)"
+    // Light: soft tint so hover does not dim readable foreground text
+    return isDarkTheme ? "#262626" : "rgba(139, 92, 246, 0.14)"
   }, [gradientColor, isDarkTheme])
 
   const resolvedGradientOpacity = useMemo(() => {
     if (typeof gradientOpacity === "number") return gradientOpacity
-    return isDarkTheme ? 0.8 : 0.5
+    return isDarkTheme ? 0.8 : 1
   }, [gradientOpacity, isDarkTheme])
+
+  /** Orb glow: full strength in dark (screen blend); keep light mode airy so text stays legible */
+  const resolvedOrbOpacity = useMemo(() => {
+    if (!isDarkTheme) return Math.min(glowOpacity * 0.32, 0.35)
+    return glowOpacity
+  }, [isDarkTheme, glowOpacity])
 
   const mouseX = useMotionValue(-gradientSize)
   const mouseY = useMotionValue(-gradientSize)
@@ -103,6 +110,7 @@ export function MagicCard(props: MagicCardProps) {
   const modeRef = useRef(mode)
   const glowOpacityRef = useRef(glowOpacity)
   const gradientSizeRef = useRef(gradientSize)
+  const orbEnterOpacityRef = useRef(resolvedOrbOpacity)
 
   useEffect(() => {
     modeRef.current = mode
@@ -113,6 +121,10 @@ export function MagicCard(props: MagicCardProps) {
   }, [glowOpacity])
 
   useEffect(() => {
+    orbEnterOpacityRef.current = resolvedOrbOpacity
+  }, [resolvedOrbOpacity])
+
+  useEffect(() => {
     gradientSizeRef.current = gradientSize
   }, [gradientSize])
 
@@ -121,7 +133,7 @@ export function MagicCard(props: MagicCardProps) {
       const currentMode = modeRef.current
 
       if (currentMode === "orb") {
-        if (reason === "enter") orbVisible.set(glowOpacityRef.current)
+        if (reason === "enter") orbVisible.set(orbEnterOpacityRef.current)
         else orbVisible.set(0)
         return
       }
@@ -197,7 +209,12 @@ export function MagicCard(props: MagicCardProps) {
       {mode === "gradient" && (
         <motion.div
           suppressHydrationWarning
-          className="pointer-events-none absolute inset-px z-30 rounded-[inherit] opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+          className={cn(
+            "pointer-events-none absolute inset-px z-30 rounded-[inherit] opacity-0 transition-opacity duration-300",
+            typeof gradientOpacity === "number"
+              ? "group-hover:opacity-[var(--magic-card-gop)]"
+              : "group-hover:opacity-100 dark:group-hover:opacity-80"
+          )}
           style={{
             background: useMotionTemplate`
               radial-gradient(${gradientSize}px circle at ${mouseX}px ${mouseY}px,
@@ -205,7 +222,9 @@ export function MagicCard(props: MagicCardProps) {
                 transparent 100%
               )
             `,
-            opacity: resolvedGradientOpacity,
+            ...(typeof gradientOpacity === "number"
+              ? { "--magic-card-gop": resolvedGradientOpacity } as React.CSSProperties
+              : {}),
           }}
         />
       )}
@@ -227,7 +246,8 @@ export function MagicCard(props: MagicCardProps) {
             opacity: orbVisible,
             background: `linear-gradient(${glowAngle}deg, ${glowFrom}, ${glowTo})`,
 
-            mixBlendMode: isDarkTheme ? "screen" : "normal",
+            // screen keeps glow luminous on dark; on light, screen avoids a muddy "dimming" veil over text
+            mixBlendMode: "screen",
             willChange: "transform, opacity",
           }}
         />
