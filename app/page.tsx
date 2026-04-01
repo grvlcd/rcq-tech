@@ -12,11 +12,11 @@ import { ScrollProgress } from "@/components/ui/scroll-progress"
 
 export default function Home() {
   return (
-    <div className="relative min-h-screen overflow-x-hidden bg-background text-foreground">
+    <div className="relative min-h-screen overflow-hidden bg-background text-foreground">
       <ScrollProgress className="h-1" />
       <SiteHeader />
 
-      <main className="overflow-hidden">
+      <main>
         <FadeInSection>
           <HeroSection />
         </FadeInSection>
