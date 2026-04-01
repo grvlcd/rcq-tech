@@ -11,6 +11,7 @@ const navLinks = [
   { sectionId: "home", href: "/", label: "Home" },
   { sectionId: "services", href: "/#services", label: "Services" },
   { sectionId: "about", href: "/#about", label: "About" },
+  { sectionId: "pricing", href: "/#pricing", label: "Pricing" },
   { sectionId: "portfolio", href: "/#portfolio", label: "Portfolio" },
   { sectionId: "contact", href: "/#contact", label: "Contact" },
 ] as const;
@@ -21,6 +22,7 @@ const SECTION_ORDER: readonly SectionId[] = [
   "home",
   "services",
   "about",
+  "pricing",
   "portfolio",
   "contact",
 ];

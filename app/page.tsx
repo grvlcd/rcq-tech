@@ -1,24 +1,16 @@
 import { AboutSection } from "@/components/about-section";
 import { HeroSection } from "@/components/hero-section";
+import { PricingSection } from "@/components/pricing";
 import { ServicesSection } from "@/components/services";
 
 export default function Home() {
   return (
     <div className="relative min-h-svh">
       <HeroSection />
-
       <div className="mx-auto max-w-6xl space-y-32 px-4 pb-32 sm:px-6 lg:px-8">
         <ServicesSection />
         <AboutSection />
-        <section id="pricing" className="scroll-mt-24 sm:scroll-mt-28">
-          <h2 className="font-[family-name:var(--font-sans)] text-2xl font-semibold text-white">
-            Pricing
-          </h2>
-          <p className="mt-3 max-w-2xl text-zinc-500">
-            Engagement models tailored to scope—from fixed discovery sprints to
-            ongoing product partnerships.
-          </p>
-        </section>
+        <PricingSection />
         <section id="contact" className="scroll-mt-24 sm:scroll-mt-28">
           <h2 className="font-[family-name:var(--font-sans)] text-2xl font-semibold text-white">
             Contact
