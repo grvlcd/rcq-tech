@@ -1,6 +1,7 @@
 import { AboutSection } from "@/components/about-section";
 import { HeroSection } from "@/components/hero-section";
 import { PricingSection } from "@/components/pricing";
+import { ProjectsSection } from "@/components/projects";
 import { ServicesSection } from "@/components/services";
 
 export default function Home() {
@@ -11,6 +12,7 @@ export default function Home() {
         <ServicesSection />
         <AboutSection />
         <PricingSection />
+        <ProjectsSection />
         <section id="contact" className="scroll-mt-24 sm:scroll-mt-28">
           <h2 className="font-[family-name:var(--font-sans)] text-2xl font-semibold text-white">
             Contact

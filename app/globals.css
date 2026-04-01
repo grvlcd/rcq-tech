@@ -8,6 +8,15 @@
   --color-gold: #c49a00;
   --color-gold-muted: color-mix(in oklch, #c49a00 55%, black);
   --color-background: #1a1818;
+  --animate-background-position-spin: background-position-spin 3000ms infinite alternate;
+  @keyframes background-position-spin {
+  0% {
+    background-position: top center;
+    }
+  100% {
+    background-position: bottom center;
+    }
+  }
 }
 
 html {
