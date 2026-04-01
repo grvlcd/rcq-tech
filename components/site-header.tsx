@@ -77,21 +77,21 @@ export function SiteHeader() {
     <div className="mx-auto flex h-16 w-full max-w-6xl shrink-0 items-center justify-between px-4 sm:h-[4.25rem] sm:px-6 lg:px-8">
       <Link
         href="/"
-        className="group/logo relative flex items-center gap-2.5 rounded-xl py-1 pr-1 outline-none focus-visible:ring-2 focus-visible:ring-gold/45 focus-visible:ring-offset-2 focus-visible:ring-offset-black sm:gap-3"
+        className="group/logo relative flex items-center gap-3 rounded-xl py-1.5 pr-1.5 outline-none focus-visible:ring-2 focus-visible:ring-gold/45 focus-visible:ring-offset-2 focus-visible:ring-offset-black sm:gap-3.5"
         onClick={() => setOpen(false)}
         aria-label="RCQ Tech home"
       >
-        <span className="flex min-w-0 items-baseline gap-1.5">
-          <span className="bg-gradient-to-r from-[#e8d089] via-gold to-[#a67c00] bg-clip-text font-[family-name:var(--font-geist-mono)] text-[13px] font-semibold tracking-[0.18em] text-transparent uppercase sm:text-sm">
+        <span className="flex min-w-0 items-baseline gap-2">
+          <span className="bg-gradient-to-r from-[#e8d089] via-gold to-[#a67c00] bg-clip-text font-[family-name:var(--font-geist-mono)] text-base font-semibold tracking-[0.16em] text-transparent uppercase sm:text-lg">
             RCQ
           </span>
           <span
-            className="font-[family-name:var(--font-geist-mono)] text-gold/35 text-[10px] transition-transform duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover/logo:translate-x-px group-hover/logo:text-gold/55 sm:text-[11px]"
+            className="font-[family-name:var(--font-geist-mono)] text-gold/35 text-xs transition-transform duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover/logo:translate-x-px group-hover/logo:text-gold/55 sm:text-sm"
             aria-hidden
           >
             //
           </span>
-          <span className="font-[family-name:var(--font-sans)] text-[13px] font-medium tracking-tight text-zinc-500 transition-colors duration-300 group-hover/logo:text-zinc-100 sm:text-sm">
+          <span className="font-[family-name:var(--font-sans)] text-base font-medium tracking-tight text-zinc-500 transition-colors duration-300 group-hover/logo:text-zinc-100 sm:text-lg">
             Tech
           </span>
         </span>
