@@ -1,4 +1,4 @@
-import { Globe } from "@/components/ui/globe";
+import { HeroGlobe } from "@/components/hero-globe";
 import { cn } from "@/lib/utils";
 
 export function HeroSection() {
@@ -25,7 +25,7 @@ export function HeroSection() {
                             "[mask-image:radial-gradient(circle_at_50%_50%,black_42%,transparent_74%)] md:[mask-image:radial-gradient(circle_at_45%_50%,black_38%,transparent_70%)]"
                         )}
                     >
-                        <Globe />
+                        <HeroGlobe />
                     </div>
                 </div>
 
