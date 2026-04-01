@@ -1,9 +1,8 @@
 import type { Metadata } from "next";
-import { JetBrains_Mono, Manrope } from "next/font/google";
-import { ThemeProvider } from "@/components/theme-provider";
+import { JetBrains_Mono, Outfit } from "next/font/google";
 import "./globals.css";
 
-const manrope = Manrope({
+const outfit = Outfit({
   variable: "--font-sans",
   subsets: ["latin"],
 });
@@ -27,11 +26,11 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${manrope.variable} ${jetbrainsMono.variable} h-full antialiased`}
+      className={`${outfit.variable} ${jetbrainsMono.variable} min-h-svh overflow-x-clip antialiased`}
       suppressHydrationWarning
     >
-      <body className="min-h-full flex flex-col">
-        <ThemeProvider>{children}</ThemeProvider>
+      <body className="flex min-h-svh flex-col">
+        {children}
       </body>
     </html>
   );
