@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { JetBrains_Mono, Outfit } from "next/font/google";
+import { SiteHeader } from "@/components/site-header";
 import "./globals.css";
 
 const outfit = Outfit({
@@ -29,8 +30,9 @@ export default function RootLayout({
       className={`${outfit.variable} ${jetbrainsMono.variable} min-h-svh overflow-x-clip antialiased`}
       suppressHydrationWarning
     >
-      <body className="flex min-h-svh flex-col">
-        {children}
+      <body className="flex min-h-svh flex-col bg-[#0F0F0F] text-zinc-100">
+        <SiteHeader />
+        <main className="flex-1">{children}</main>
       </body>
     </html>
   );

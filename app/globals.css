@@ -2,6 +2,14 @@
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
 
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-gold: #c49a00;
+  --color-gold-muted: color-mix(in oklch, #c49a00 55%, black);
+  --color-background: #1a1818;
+}
+
 html {
   scroll-behavior: smooth;
 }
