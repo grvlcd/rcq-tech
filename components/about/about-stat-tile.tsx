@@ -28,7 +28,7 @@ export function AboutStatTile({
         delay={index * 1.2}
         reverse={index % 2 === 1}
         colorFrom="#c49a00"
-        colorTo="#6b21ef"
+        colorTo="#c49a00"
         borderWidth={1}
       />
       <p

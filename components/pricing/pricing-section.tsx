@@ -53,12 +53,12 @@ export function PricingSection() {
     <section
       ref={sectionRef}
       id="pricing"
-      className="scroll-mt-24 sm:scroll-mt-28"
+      className="scroll-mt-24 overflow-x-clip sm:scroll-mt-28"
       aria-labelledby="pricing-heading"
     >
-      <div className="relative">
+      <div className="relative overflow-x-clip">
         <div
-          className="pointer-events-none absolute -inset-x-8 -top-24 h-64 opacity-40 blur-3xl"
+          className="pointer-events-none absolute inset-x-0 -top-24 h-64 opacity-40 blur-3xl sm:inset-x-[-1rem] lg:inset-x-[-2rem]"
           style={{
             background: `radial-gradient(ellipse 70% 60% at 50% 0%, ${category.gradientFrom}33, transparent 70%)`,
           }}
@@ -89,27 +89,41 @@ export function PricingSection() {
           </p>
         </header>
 
-        <div className="relative mt-10 lg:mt-12 lg:grid lg:grid-cols-12 lg:gap-8 lg:gap-y-6">
+        <div className="relative mt-10 min-w-0 lg:mt-12 lg:grid lg:grid-cols-12 lg:gap-8 lg:gap-y-6">
           {/* Category rail */}
           <nav
-            className="lg:col-span-5"
+            className="min-w-0 lg:col-span-5"
             aria-label="Service categories"
           >
             <p className="mb-3 font-[family-name:var(--font-geist-mono)] text-[0.65rem] font-medium uppercase tracking-[0.18em] text-zinc-500">
               Pick a track
             </p>
             <LayoutGroup id="pricing-cats">
-              <ul className="flex gap-2 overflow-x-auto pb-2 [-ms-overflow-style:none] [scrollbar-width:none] lg:flex-col lg:overflow-visible lg:pb-0 [&::-webkit-scrollbar]:hidden">
+              <ul
+                className={cn(
+                  "flex min-w-0 max-w-full gap-2 overflow-x-auto overflow-y-hidden overscroll-x-contain pb-2",
+                  "snap-x snap-mandatory lg:snap-none",
+                  "lg:flex-col lg:overflow-visible lg:pb-0",
+                  "[scrollbar-width:thin] [scrollbar-color:theme(colors.zinc.600)_theme(colors.zinc.900/80)]",
+                  "[&::-webkit-scrollbar]:h-2 [&::-webkit-scrollbar]:rounded-full",
+                  "[&::-webkit-scrollbar-track]:rounded-full [&::-webkit-scrollbar-track]:bg-zinc-900/80",
+                  "[&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-zinc-600",
+                  "[&::-webkit-scrollbar-thumb]:hover:bg-gold/50"
+                )}
+              >
                 {PRICING_CATEGORIES.map((cat, i) => {
                   const active = i === categoryIndex;
                   const CIcon = icons[cat.icon];
                   return (
-                    <li key={cat.id} className="shrink-0 lg:w-full">
+                    <li
+                      key={cat.id}
+                      className="w-[min(100%,min(22rem,calc(100vw-2.5rem)))] shrink-0 snap-start last:pr-0 sm:w-[min(100%,24rem)] lg:w-full lg:max-w-none"
+                    >
                       <button
                         type="button"
                         onClick={() => setCategoryIndex(i)}
                         className={cn(
-                          "relative flex w-full items-center gap-3 rounded-2xl border px-4 py-3.5 text-left transition-colors lg:px-4 lg:py-4",
+                          "relative flex w-full min-w-0 items-center gap-3 rounded-2xl border px-4 py-3.5 text-left transition-colors lg:px-4 lg:py-4",
                           active
                             ? "border-white/15 bg-white/[0.06] text-white"
                             : "border-transparent bg-transparent text-zinc-500 hover:border-white/10 hover:bg-white/[0.03] hover:text-zinc-300"
@@ -169,8 +183,8 @@ export function PricingSection() {
           </nav>
 
           {/* Detail panel */}
-          <div className="relative mt-8 lg:col-span-7 lg:mt-0">
-            <div className="relative overflow-hidden rounded-3xl">
+          <div className="relative mt-8 min-w-0 lg:col-span-7 lg:mt-0">
+            <div className="relative min-w-0 overflow-hidden rounded-3xl">
               <MagicCard
                 className="rounded-3xl"
                 gradientFrom={category.gradientFrom}
@@ -179,9 +193,9 @@ export function PricingSection() {
                 gradientColor="#0a0a0a"
                 gradientOpacity={0.55}
               >
-                <div className="rounded-[inherit] p-6 sm:p-8">
-                  <div className="flex flex-col gap-6 sm:flex-row sm:items-start sm:justify-between">
-                    <div className="flex items-start gap-4">
+                <div className="min-w-0 rounded-[inherit] p-6 sm:p-8">
+                  <div className="flex min-w-0 flex-col gap-6 sm:flex-row sm:items-start sm:justify-between">
+                    <div className="flex min-w-0 items-start gap-4">
                       <span
                         className="flex size-12 shrink-0 items-center justify-center rounded-2xl border border-white/10 bg-black/40 text-white"
                         style={{
@@ -190,7 +204,7 @@ export function PricingSection() {
                       >
                         <Icon className="size-6" aria-hidden />
                       </span>
-                      <div>
+                      <div className="min-w-0 flex-1">
                         <p className="font-[family-name:var(--font-geist-mono)] text-[0.65rem] font-medium uppercase tracking-[0.2em] text-zinc-500">
                           {category.title}
                         </p>
@@ -209,7 +223,7 @@ export function PricingSection() {
                     role="group"
                     aria-label="Complexity tier"
                   >
-                    <div className="relative grid grid-cols-3 gap-1 rounded-2xl border border-white/10 bg-black/40 p-1">
+                    <div className="relative grid grid-cols-1 gap-1 rounded-2xl border border-white/10 bg-black/40 p-1 min-[400px]:grid-cols-3">
                       {TIER_ORDER.map((id) => {
                         const t = category.tiers[id];
                         const selected = tierId === id;
@@ -219,7 +233,7 @@ export function PricingSection() {
                             type="button"
                             onClick={() => setTierId(id)}
                             className={cn(
-                              "relative z-10 rounded-xl px-2 py-2.5 text-center text-sm font-medium transition-colors sm:py-3",
+                              "relative z-10 min-w-0 rounded-xl px-2 py-2.5 text-center text-sm font-medium transition-colors min-[400px]:py-3",
                               selected
                                 ? "text-white"
                                 : "text-zinc-500 hover:text-zinc-300"
@@ -258,24 +272,24 @@ export function PricingSection() {
                         {tier.summary}
                       </p>
 
-                      <dl className="grid gap-4 sm:grid-cols-2">
-                        <div className="rounded-2xl border border-white/10 bg-black/30 px-4 py-4">
+                      <dl className="grid min-w-0 gap-4 sm:grid-cols-2">
+                        <div className="min-w-0 rounded-2xl border border-white/10 bg-black/30 px-4 py-4">
                           <dt className="font-[family-name:var(--font-geist-mono)] text-[0.65rem] font-medium uppercase tracking-[0.16em] text-zinc-500">
                             Timeline
                           </dt>
-                          <dd className="mt-2 text-lg font-semibold text-white">
+                          <dd className="mt-2 break-words text-lg font-semibold text-white">
                             {tier.timeline}
                           </dd>
                         </div>
-                        <div className="rounded-2xl border border-white/10 bg-black/30 px-4 py-4 sm:col-span-1">
+                        <div className="min-w-0 rounded-2xl border border-white/10 bg-black/30 px-4 py-4 sm:col-span-1">
                           <dt className="font-[family-name:var(--font-geist-mono)] text-[0.65rem] font-medium uppercase tracking-[0.16em] text-zinc-500">
                             Starting at
                           </dt>
                           <dd className="mt-2 space-y-1">
-                            <span className="block text-lg font-semibold text-white">
+                            <span className="block break-words text-lg font-semibold tabular-nums text-white">
                               {formatPhp(tier.php)}
                             </span>
-                            <span className="block text-sm text-zinc-500">
+                            <span className="block break-words text-sm tabular-nums text-zinc-500">
                               ≈ {formatUsd(tier.usd)} USD
                             </span>
                           </dd>

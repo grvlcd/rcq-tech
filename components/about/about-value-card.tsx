@@ -26,9 +26,9 @@ export function AboutValueCard({
       <MagicCard
         className="h-full rounded-2xl"
         gradientSize={220}
-        gradientFrom="rgba(196, 154, 0, 0.55)"
-        gradientTo="rgba(80, 60, 0, 0.25)"
-        gradientColor="rgba(196, 154, 0, 0.12)"
+        gradientFrom="rgba(196, 154, 0, 0.5)"
+        gradientTo="rgba(196, 154, 0, 0.5)"
+        gradientColor="rgba(196, 154, 0, 0.5)"
         gradientOpacity={0.85}
       >
         <div className="flex h-full gap-4 rounded-2xl bg-zinc-950/88 p-5 sm:p-6">

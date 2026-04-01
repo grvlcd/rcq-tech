@@ -27,15 +27,15 @@ export function AboutNarrativePanel({ inView }: AboutNarrativePanelProps) {
           size={100}
           duration={18}
           colorFrom="#c49a00"
-          colorTo="#8b5cf6"
+          colorTo="#c49a00"
           borderWidth={1}
         />
         <MagicCard
           className="rounded-[1.3rem]"
           gradientSize={280}
           gradientFrom="rgba(196, 154, 0, 0.5)"
-          gradientTo="rgba(107, 33, 239, 0.22)"
-          gradientColor="rgba(196, 154, 0, 0.1)"
+          gradientTo="rgba(196, 154, 0, 0.5)"
+          gradientColor="rgba(196, 154, 0, 0.5)"
           gradientOpacity={0.75}
         >
           <div className="relative rounded-[1.28rem] bg-linear-to-br from-zinc-950/95 via-zinc-950/90 to-zinc-950/95 px-6 py-8 sm:px-9 sm:py-10">

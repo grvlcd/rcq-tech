@@ -15,7 +15,7 @@ export function ServicesStackPanel() {
           duration={14}
           delay={2}
           reverse
-          colorFrom="#6b21ef"
+          colorFrom="#c49a00"
           colorTo="#c49a00"
           borderWidth={1}
         />
