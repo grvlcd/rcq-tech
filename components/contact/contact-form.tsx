@@ -1,7 +1,7 @@
 "use client";
 
 import { AnimatePresence, motion } from "motion/react";
-import { useEffect, useState, type FormEvent } from "react";
+import { useState, type FormEvent } from "react";
 import { Check, Send } from "lucide-react";
 
 import { BorderBeam } from "@/components/ui/border-beam";
@@ -32,17 +32,9 @@ export function ContactForm({ inView }: ContactFormProps) {
   const [description, setDescription] = useState("");
   const [status, setStatus] = useState<"idle" | "sending" | "sent">("idle");
   const [showRequiredHint, setShowRequiredHint] = useState(false);
-
-  useEffect(() => {
-    if (
-      showRequiredHint &&
-      name.trim() &&
-      email.trim() &&
-      description.trim()
-    ) {
-      setShowRequiredHint(false);
-    }
-  }, [name, email, description, showRequiredHint]);
+  const allRequiredFilled =
+    Boolean(name.trim()) && Boolean(email.trim()) && Boolean(description.trim());
+  const visibleRequiredHint = showRequiredHint && !allRequiredFilled;
 
   async function handleSubmit(e: FormEvent) {
     e.preventDefault();
@@ -141,7 +133,7 @@ export function ContactForm({ inView }: ContactFormProps) {
                   key="form"
                   initial={{ opacity: 0 }}
                   animate={
-                    showRequiredHint
+                    visibleRequiredHint
                       ? { opacity: 1, x: [0, -7, 7, -5, 5, 0] }
                       : { opacity: 1, x: 0 }
                   }
@@ -152,7 +144,7 @@ export function ContactForm({ inView }: ContactFormProps) {
                   noValidate
                 >
                   <AnimatePresence>
-                    {showRequiredHint && (
+                    {visibleRequiredHint && (
                       <motion.p
                         initial={{ opacity: 0, y: -6 }}
                         animate={{ opacity: 1, y: 0 }}

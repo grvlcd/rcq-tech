@@ -5,27 +5,12 @@ import Link from "next/link";
 import { AnimatePresence, motion } from "motion/react";
 import { Menu, X } from "lucide-react";
 import { LiquidGlass } from "@liquidglass/react";
+import {
+  SITE_NAV_LINKS as navLinks,
+  SITE_NAV_SECTION_ORDER as SECTION_ORDER,
+  type SiteNavSectionId as SectionId,
+} from "@/lib/site-nav";
 import { cn } from "@/lib/utils";
-
-const navLinks = [
-  { sectionId: "home", href: "/", label: "Home" },
-  { sectionId: "services", href: "/#services", label: "Services" },
-  { sectionId: "about", href: "/#about", label: "About" },
-  { sectionId: "pricing", href: "/#pricing", label: "Pricing" },
-  { sectionId: "portfolio", href: "/#portfolio", label: "Portfolio" },
-  { sectionId: "contact", href: "/#contact", label: "Contact" },
-] as const;
-
-type SectionId = (typeof navLinks)[number]["sectionId"];
-
-const SECTION_ORDER: readonly SectionId[] = [
-  "home",
-  "services",
-  "about",
-  "pricing",
-  "portfolio",
-  "contact",
-];
 
 const SCROLL_SPY_OFFSET_PX = 100;
 
@@ -91,7 +76,7 @@ export function SiteHeader() {
             className="font-[family-name:var(--font-geist-mono)] text-gold/35 text-xs transition-transform duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover/logo:translate-x-px group-hover/logo:text-gold/55 sm:text-sm"
             aria-hidden
           >
-            //
+            {"//"}
           </span>
           <span className="font-[family-name:var(--font-sans)] text-base font-medium tracking-tight text-zinc-500 transition-colors duration-300 group-hover/logo:text-zinc-100 sm:text-lg">
             Tech
