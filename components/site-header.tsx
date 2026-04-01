@@ -34,9 +34,11 @@ export function SiteHeader() {
   useEffect(() => {
     let ticking = false;
     const sync = () => {
-      setScrolled(window.scrollY > 16);
-      setActiveSectionId(getActiveSectionId());
       ticking = false;
+      const nextScrolled = window.scrollY > 16;
+      const nextActive = getActiveSectionId();
+      setScrolled((prev) => (prev === nextScrolled ? prev : nextScrolled));
+      setActiveSectionId((prev) => (prev === nextActive ? prev : nextActive));
     };
     const onScrollOrResize = () => {
       if (!ticking) {

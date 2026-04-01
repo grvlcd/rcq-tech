@@ -16,7 +16,7 @@ const GLOBE_CONFIG: COBEOptions = {
   theta: 0.3,
   dark: 0,
   diffuse: 0.4,
-  mapSamples: 16000,
+  mapSamples: 12000,
   mapBrightness: 1.2,
   baseColor: [0.88, 0.86, 0.82],
   markerColor: [232 / 255, 201 / 255, 109 / 255],
@@ -42,6 +42,7 @@ export function Globe({
   className?: string
   config?: COBEOptions
 }) {
+  const rootRef = useRef<HTMLDivElement>(null)
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const phiRef = useRef(0)
   const widthRef = useRef(0)
@@ -71,10 +72,20 @@ export function Globe({
   }
 
   useEffect(() => {
+    const root = rootRef.current
     const canvas = canvasRef.current
-    if (!canvas) return
+    if (!root || !canvas) return
 
     let rafId = 0
+    let visible = true
+    let frameCount = 0
+
+    const reducedMotionMq = window.matchMedia("(prefers-reduced-motion: reduce)")
+    let prefersReducedMotion = reducedMotionMq.matches
+    const onReducedMotionChange = () => {
+      prefersReducedMotion = reducedMotionMq.matches
+    }
+    reducedMotionMq.addEventListener("change", onReducedMotionChange)
 
     const onResize = () => {
       widthRef.current = canvas.offsetWidth
@@ -83,21 +94,62 @@ export function Globe({
     window.addEventListener("resize", onResize)
     onResize()
 
+    const dpr = Math.min(2, window.devicePixelRatio || 1)
+    const mapSamples =
+      window.innerWidth < 768 ? 8000 : config.mapSamples ?? GLOBE_CONFIG.mapSamples
+
     const globe = createGlobe(canvas, {
       ...config,
+      devicePixelRatio: dpr,
+      mapSamples,
       width: widthRef.current * 2,
       height: widthRef.current * 2,
     })
 
     const tick = () => {
-      if (!pointerInteracting.current) phiRef.current += 0.005
-      globe.update({
-        phi: phiRef.current + rs.get(),
-        width: widthRef.current * 2,
-        height: widthRef.current * 2,
-      })
-      rafId = requestAnimationFrame(tick)
+      if (!visible) return
+
+      frameCount += 1
+      const throttleDraw = prefersReducedMotion && frameCount % 2 !== 0
+
+      if (!pointerInteracting.current) {
+        if (!prefersReducedMotion) {
+          phiRef.current += 0.005
+        } else if (frameCount % 4 === 0) {
+          phiRef.current += 0.005
+        }
+      }
+
+      if (!throttleDraw) {
+        globe.update({
+          phi: phiRef.current + rs.get(),
+          width: widthRef.current * 2,
+          height: widthRef.current * 2,
+        })
+      }
+
+      if (visible) {
+        rafId = requestAnimationFrame(tick)
+      }
     }
+
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry) return
+        const next = entry.isIntersecting
+        if (next === visible) return
+        visible = next
+        if (visible) {
+          rafId = requestAnimationFrame(tick)
+        } else {
+          cancelAnimationFrame(rafId)
+          rafId = 0
+        }
+      },
+      { rootMargin: "100px", threshold: 0 },
+    )
+    io.observe(root)
+
     rafId = requestAnimationFrame(tick)
 
     const t = setTimeout(() => {
@@ -106,7 +158,10 @@ export function Globe({
 
     return () => {
       clearTimeout(t)
+      visible = false
+      reducedMotionMq.removeEventListener("change", onReducedMotionChange)
       cancelAnimationFrame(rafId)
+      io.disconnect()
       globe.destroy()
       window.removeEventListener("resize", onResize)
     }
@@ -114,6 +169,7 @@ export function Globe({
 
   return (
     <div
+      ref={rootRef}
       className={cn(
         "absolute inset-0 mx-auto aspect-square w-full max-w-150",
         className
