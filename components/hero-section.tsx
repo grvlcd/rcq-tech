@@ -2,10 +2,9 @@ import { Globe } from "@/components/ui/globe";
 import { cn } from "@/lib/utils";
 
 export function HeroSection() {
-    const tagLine = ["Reliability", "Consistency", "Quality"];
-
     return (
         <section
+            id="home"
             className="relative isolate mx-auto min-h-[calc(100svh-69px)] w-full max-w-6xl px-4 sm:px-6 lg:px-8"
             aria-label="Introduction"
         >

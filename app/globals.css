@@ -11,5 +11,6 @@
 }
 
 html {
+  --primary: #c49a00;
   scroll-behavior: smooth;
 }
