@@ -13,6 +13,7 @@ import {
 import { motion, useInView } from "motion/react";
 import { useRef } from "react";
 import { ServiceTitle } from "@/components/service-title";
+import { ShinyButton } from "./ui/shiny-button";
 
 export const services = [
     {
@@ -103,8 +104,7 @@ export function ServicesSection() {
                         software.
                     </p>
                     <div className="mt-8 flex flex-wrap items-center gap-4">
-                        <button
-                            type="button"
+                        <ShinyButton
                             className={cn(
                                 "rounded-lg px-7 py-3.5",
                                 "font-[family-name:var(--font-geist-mono)] text-xs font-semibold uppercase tracking-[0.18em]",
@@ -121,13 +121,7 @@ export function ServicesSection() {
                             }}
                         >
                             Start a project
-                        </button>
-                        <a
-                            href="#contact"
-                            className="text-sm text-zinc-500 underline-offset-4 transition-colors hover:text-zinc-300"
-                        >
-                            Or tell us what you are building →
-                        </a>
+                        </ShinyButton>
                     </div>
                 </motion.div>
 
