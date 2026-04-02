@@ -5,7 +5,6 @@ import { ArrowUpRight } from "lucide-react";
 import { motion, useReducedMotion } from "motion/react";
 
 import { BorderBeam } from "@/components/ui/border-beam";
-import { DotPattern } from "@/components/ui/dot-pattern";
 import { SITE_NAV_LINKS } from "@/lib/site-nav";
 import { SITE_SOCIAL_LINKS } from "@/lib/site-social";
 import { cn } from "@/lib/utils";

@@ -5,7 +5,7 @@ export function HeroSection() {
     return (
         <section
             id="home"
-            className="relative isolate mx-auto min-h-[calc(100svh-69px)] w-full max-w-6xl px-4 sm:px-6 lg:px-8"
+            className="relative isolate mx-auto min-h-[calc(100svh-69px)] w-full max-w-6xl overflow-x-clip px-4 sm:px-6 lg:px-8"
             aria-label="Introduction"
         >
             <div className="relative grid min-h-[calc(100svh-69px)] md:grid-cols-2 md:items-center md:gap-8 lg:gap-12">

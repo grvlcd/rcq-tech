@@ -13,13 +13,12 @@ export function N8nChat() {
   useEffect(() => {
     if (startedRef.current) return;
     startedRef.current = true;
-
-
+    const isMobileViewport = window.matchMedia("(max-width: 767px)").matches;
 
     void import("@n8n/chat").then(({ createChat }) => {
       createChat({
         webhookUrl,
-        mode: "window",
+        mode: isMobileViewport ? "window" : "fullscreen",
         showWelcomeScreen: true,
         initialMessages: [
           "Hi — welcome to RCQ Tech.",

@@ -23,4 +23,10 @@
 html {
   --primary: #c49a00;
   scroll-behavior: smooth;
+  overflow-x: clip;
+}
+
+body {
+  max-width: 100%;
+  overflow-x: clip;
 }

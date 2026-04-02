@@ -29,10 +29,10 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${outfit.variable} ${jetbrainsMono.variable} min-h-svh overflow-x-clip antialiased`}
+      className={`${outfit.variable} ${jetbrainsMono.variable} min-h-svh overflow-x-hidden antialiased`}
       suppressHydrationWarning
     >
-      <body className="flex min-h-svh flex-col bg-[#0F0F0F] text-zinc-100">
+      <body className="flex min-h-svh max-w-full flex-col overflow-x-clip bg-[#0F0F0F] text-zinc-100">
         <SiteHeader />
         <main className="flex-1">{children}</main>
         <SiteFooter />
