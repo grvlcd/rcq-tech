@@ -1,40 +1,14 @@
 "use client";
 
-import type { ReactNode } from "react";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { motion, useReducedMotion } from "motion/react";
 
 import { BorderBeam } from "@/components/ui/border-beam";
 import { DotPattern } from "@/components/ui/dot-pattern";
-import { Marquee } from "@/components/ui/marquee";
 import { SITE_NAV_LINKS } from "@/lib/site-nav";
 import { SITE_SOCIAL_LINKS } from "@/lib/site-social";
 import { cn } from "@/lib/utils";
-
-const MARQUEE_TAGS = [
-  "Reliability",
-  "Consistency",
-  "Quality",
-  "Custom software",
-  "Workflow automation",
-  "AI integrations",
-  "Conversion-focused web",
-  "RCQ Tech",
-] as const;
-
-function MarqueeChip({ children }: { children: ReactNode }) {
-  return (
-    <span
-      className={cn(
-        "mx-3 inline-flex items-center gap-2 font-[family-name:var(--font-geist-mono)] text-[11px] font-medium uppercase tracking-[0.22em] text-zinc-500"
-      )}
-    >
-      <span className="size-1 rounded-full bg-gold/70 shadow-[0_0_10px_rgba(196,154,0,0.45)]" />
-      {children}
-    </span>
-  );
-}
 
 export function SiteFooter() {
   const reduceMotion = useReducedMotion();
@@ -53,25 +27,8 @@ export function SiteFooter() {
         aria-hidden
       />
 
-      <div className="relative border-b border-white/[0.05] bg-black/25 py-2">
-        <Marquee pauseOnHover durationSeconds={42} repeat={5} className="py-1 [--gap:0]">
-          {MARQUEE_TAGS.map((tag) => (
-            <MarqueeChip key={tag}>{tag}</MarqueeChip>
-          ))}
-        </Marquee>
-      </div>
-
       <div className="relative mx-auto max-w-6xl px-4 py-14 sm:px-6 sm:py-16 lg:px-8 lg:py-20">
         <div className="relative overflow-hidden rounded-2xl border border-white/[0.08] bg-zinc-950/40 shadow-[0_0_0_1px_rgba(196,154,0,0.06)_inset,0_28px_80px_-32px_rgba(0,0,0,0.9)] backdrop-blur-sm">
-          <DotPattern
-            width={20}
-            height={20}
-            cx={1}
-            cy={1}
-            cr={1}
-            glow
-            className="mask-[linear-gradient(to_bottom,black_20%,transparent_88%)] text-gold/[0.12]"
-          />
           <BorderBeam
             size={120}
             duration={14}
