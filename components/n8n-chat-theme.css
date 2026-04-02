@@ -1,0 +1,174 @@
+:root,
+#n8n-chat {
+  /* Force RCQ gold-on-black theme AFTER @n8n/chat defaults */
+  --chat--font-family: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
+
+  --chat--color--primary: var(--primary) !important;
+  --chat--color--primary-shade-50: color-mix(
+    in oklch,
+    var(--primary) 86%,
+    black
+  ) !important;
+  --chat--color--primary--shade-100: color-mix(
+    in oklch,
+    var(--primary) 74%,
+    black
+  ) !important;
+
+  --chat--color--secondary: color-mix(
+    in oklch,
+    var(--primary) 30%,
+    white
+  ) !important;
+  --chat--color-secondary-shade-50: color-mix(
+    in oklch,
+    var(--primary) 24%,
+    white
+  ) !important;
+
+  --chat--color-dark: #0b0b0b;
+  --chat--color-light: #111111;
+  --chat--color-light-shade-50: #171717;
+  --chat--color-light-shade-100: #262626;
+  --chat--color-white: #fcfbf7;
+  --chat--color-medium: #3f3f46;
+  --chat--color-disabled: #52525b;
+  --chat--color-typing: #d4d4d8;
+
+  --chat--spacing: 1rem;
+  --chat--border-radius: 18px;
+  --chat--transition-duration: 0.18s;
+
+  --chat--window--width: 420px;
+  --chat--window--height: 640px;
+  --chat--window--z-index: 9999;
+  --chat--window--border: 1px solid
+    color-mix(in oklch, var(--primary) 35%, transparent);
+  --chat--window--border-radius: 22px;
+
+  --chat--header--background:
+    radial-gradient(
+      120% 140% at 10% 0%,
+      color-mix(in oklch, var(--primary) 22%, transparent) 0%,
+      transparent 55%
+    ),
+    linear-gradient(180deg, #121212, #0c0c0c);
+  --chat--header--color: #f4f4f5;
+  --chat--heading--font-size: 1.1rem;
+  --chat--subtitle--font-size: 0.92rem;
+
+  --chat--body--background: #0c0c0c;
+  --chat--messages-list--padding: 1rem;
+
+  --chat--message--bot--background: #18181b;
+  --chat--message--bot--color: #f4f4f5;
+  --chat--message--user--background: color-mix(
+    in oklch,
+    var(--primary) 96%,
+    black
+  );
+  --chat--message--user--color: #0b0b0b;
+  --chat--message--border-radius: 16px;
+
+  --chat--toggle--size: 58px;
+  --chat--toggle--border-radius: 999px;
+  --chat--toggle--background: radial-gradient(
+    120% 120% at 30% 20%,
+    color-mix(in oklch, var(--primary) 75%, white) 0%,
+    var(--primary) 45%,
+    color-mix(in oklch, var(--primary) 72%, black) 100%
+  ) !important;
+  --chat--toggle--hover--background: radial-gradient(
+    120% 120% at 30% 20%,
+    color-mix(in oklch, var(--primary) 85%, white) 0%,
+    var(--primary) 45%,
+    color-mix(in oklch, var(--primary) 68%, black) 100%
+  ) !important;
+  --chat--toggle--active--background: color-mix(
+    in oklch,
+    var(--primary) 85%,
+    black
+  ) !important;
+  --chat--toggle--color: #0b0b0b !important;
+
+  --chat--input--background: #18181b;
+  --chat--input--text-color: #f4f4f5;
+  --chat--input--border-active: 0;
+  --chat--input--border: 1;
+  --chat--input--border-radius: 8px;
+  --chat--input--placeholder--font-size: 0.95rem;
+  --chat--textarea--height: 52px;
+  --chat--textarea--max-height: 18rem;
+
+  /* Input container + footer (these default to white in the package CSS) */
+  --chat--input--container--background: #0a0a0a;
+  --chat--input--container--border: 1px solid #27272a;
+  --chat--input--container--border-radius: 18px;
+  --chat--input--container--padding: 10px;
+  --chat--footer--background: #0c0c0c;
+  --chat--footer--color: #e4e4e7;
+  --chat--footer--border-top: 1px solid #27272a;
+  --chat--footer--padding: 12px 12px 14px;
+
+  --chat--input--send--button--background: #0a0a0a;
+  --chat--input--send--button--color: color-mix(
+    in oklch,
+    var(--primary) 82%,
+    white
+  );
+  --chat--input--send--button--background-hover: #18181b;
+  --chat--input--send--button--color-hover: color-mix(
+    in oklch,
+    var(--primary) 90%,
+    white
+  );
+  --chat--input--file--button--background: #0a0a0a;
+  --chat--input--file--button--color: #d4d4d8;
+  --chat--input--file--button--background-hover: #18181b;
+  --chat--input--file--button--color-hover: #f4f4f5;
+
+  /* Keep close/controls aligned to theme */
+  --chat--close--button--color-hover: color-mix(
+    in oklch,
+    var(--primary) 86%,
+    white
+  );
+}
+
+/* Explicitly fix placeholder contrast in case component CSS wins */
+.chat-inputs textarea::placeholder {
+  color: #a1a1aa;
+}
+
+/* Ensure the bottom control strip isn't forced white by upstream rules */
+.chat-layout .chat-footer {
+  background: #0c0c0c;
+}
+
+/* Align textarea + action buttons cleanly */
+.chat-inputs {
+  align-items: center;
+  gap: 10px;
+}
+
+.chat-inputs textarea {
+  box-sizing: border-box;
+  height: var(--chat--textarea--height);
+  min-height: var(--chat--textarea--height);
+  border-radius: 12px;
+  padding: 0.85rem 0.9rem;
+  line-height: 1.35;
+}
+
+.chat-inputs-controls {
+  align-items: center;
+}
+
+.chat-input-send-button,
+.chat-input-file-button {
+  margin: 0 !important;
+  align-self: center;
+  padding: 0 !important;
+  height: var(--chat--textarea--height);
+  width: var(--chat--textarea--height);
+}

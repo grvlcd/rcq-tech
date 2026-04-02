@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { JetBrains_Mono, Outfit } from "next/font/google";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
+import { N8nChat } from "@/components/n8n-chat";
 import "./globals.css";
 
 const outfit = Outfit({
@@ -35,6 +36,7 @@ export default function RootLayout({
         <SiteHeader />
         <main className="flex-1">{children}</main>
         <SiteFooter />
+        <N8nChat />
       </body>
     </html>
   );
