@@ -173,6 +173,7 @@
   width: var(--chat--textarea--height);
 }
 
+/* Slightly tighter panel on small viewports; desktop uses :root window dimensions */
 @media (max-width: 767px) {
   #n8n-chat {
     --chat--window--width: min(100vw - 1rem, 420px);
