@@ -25,7 +25,7 @@ export function ServicesSection() {
       </div>
 
       <motion.div
-        className="mt-12 grid auto-rows-fr grid-cols-1 gap-4 sm:gap-5 lg:grid-cols-12"
+        className="mt-12 grid auto-rows-auto sm:auto-rows-fr grid-cols-1 gap-4 sm:gap-5 lg:grid-cols-12"
         initial="hidden"
         animate={inView ? "show" : "hidden"}
         variants={{

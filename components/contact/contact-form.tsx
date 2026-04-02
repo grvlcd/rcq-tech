@@ -250,10 +250,7 @@ export function ContactForm({ inView }: ContactFormProps) {
                           Sending
                         </span>
                       ) : (
-                        <span className="inline-flex items-center gap-2">
-                          <Send className="size-3.5" strokeWidth={2.5} />
-                          Send message
-                        </span>
+                        "Send message"
                       )}
                     </ShinyButton>
                   </div>

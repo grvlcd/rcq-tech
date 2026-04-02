@@ -132,7 +132,7 @@ export function PricingSection() {
                         {active && (
                           <motion.span
                             layoutId="pricing-cat-highlight"
-                            className="absolute inset-0 rounded-2xl border border-white/10 bg-linear-to-br from-white/[0.07] to-transparent"
+                            className="absolute inset-0 rounded-2xl border border-gold/30 bg-linear-to-br from-white/[0.07] to-transparent"
                             transition={{
                               type: "spring",
                               stiffness: 380,

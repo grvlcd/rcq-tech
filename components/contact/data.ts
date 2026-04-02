@@ -2,7 +2,7 @@ export const CONTACT_SERVICE_OPTIONS = [
   { id: "web", label: "Web app" },
   { id: "mobile", label: "Mobile app" },
   { id: "automation", label: "Automation" },
-  { id: "ai", label: "AI / ML" },
+  { id: "ai", label: "AI - Agents & Chatbots" },
   { id: "design", label: "Design + build" },
   { id: "other", label: "Not sure yet" },
 ] as const;

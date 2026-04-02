@@ -20,7 +20,10 @@ export function ServiceTitle({
   return (
     <motion.article
       style={style}
-      className={cn("group relative h-full min-h-[200px]", item.className)}
+      className={cn(
+        "group relative h-full min-h-[160px] sm:min-h-[200px]",
+        item.className
+      )}
       variants={{
         hidden: { opacity: 0, y: 24 },
         show: { opacity: 1, y: 0 },
@@ -55,8 +58,8 @@ export function ServiceTitle({
           gradientOpacity={0.75}
         >
           {isFeatured ? (
-            <div className="relative grid h-full min-h-0 grid-cols-1 gap-8 p-6 sm:p-8 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)] lg:items-center lg:gap-10">
-              <div className="relative z-10 flex flex-col justify-center gap-4 lg:py-2">
+            <div className="relative grid h-full min-h-0 grid-cols-1 gap-6 p-6 sm:p-8 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)] lg:items-center lg:gap-10">
+              <div className="relative z-10 flex flex-col gap-4 max-md:justify-start max-md:pr-24 lg:py-2">
                 <span className="font-[family-name:var(--font-geist-mono)] text-xs font-medium tracking-[0.2em] text-gold/90">
                   {item.id}
                 </span>
@@ -67,18 +70,19 @@ export function ServiceTitle({
                   {item.description}
                 </p>
               </div>
-              <div className="relative z-10 flex min-h-[200px] items-center justify-center lg:min-h-[280px]">
+              <div className="relative z-10 flex min-h-0 items-center justify-center lg:min-h-[280px] max-md:h-full max-md:w-full">
                 <Icon
                   aria-hidden
                   className={cn(
                     "pointer-events-none shrink-0 transition-transform duration-500 group-hover:scale-[1.04]",
-                    item.iconClass
+                    item.iconClass,
+                    "max-md:absolute max-md:-bottom-[10%] max-md:-right-[6%]"
                   )}
                 />
               </div>
             </div>
           ) : (
-            <div className="relative flex h-full min-h-0 flex-col justify-between gap-6 p-6 sm:p-8">
+            <div className="relative flex h-full min-h-0 flex-col justify-between gap-4 p-6 sm:gap-6 sm:p-8">
               <Icon
                 aria-hidden
                 className={cn(
