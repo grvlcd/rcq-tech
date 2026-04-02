@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { AnimatePresence, motion } from "motion/react";
 import { Menu, X } from "lucide-react";
@@ -12,48 +12,87 @@ import {
 } from "@/lib/site-nav";
 import { cn } from "@/lib/utils";
 
-const SCROLL_SPY_OFFSET_PX = 100;
+const DEFAULT_SCROLL_SPY_OFFSET_PX = 160;
+const HEADER_OFFSET_PADDING_PX = 16;
 
 const FLOATING_GLASS_RADIUS_PX = 18;
-
-function getActiveSectionId(): SectionId | null {
-  let active: SectionId | null = null;
-  for (const id of SECTION_ORDER) {
-    const el = document.getElementById(id);
-    if (!el) continue;
-    if (el.getBoundingClientRect().top <= SCROLL_SPY_OFFSET_PX) active = id;
-  }
-  return active;
-}
 
 export function SiteHeader() {
   const [scrolled, setScrolled] = useState(false);
   const [activeSectionId, setActiveSectionId] = useState<SectionId | null>(null);
   const [open, setOpen] = useState(false);
 
+  const headerRef = useRef<HTMLElement | null>(null);
+  const headerOffsetPxRef = useRef<number>(DEFAULT_SCROLL_SPY_OFFSET_PX);
+  const sectionTopByIdRef = useRef<Partial<Record<SectionId, number>>>({});
+
   useEffect(() => {
+    const measureHeaderOffset = () => {
+      const headerHeight = headerRef.current?.getBoundingClientRect().height;
+      headerOffsetPxRef.current = Math.round(
+        (headerHeight ?? DEFAULT_SCROLL_SPY_OFFSET_PX) + HEADER_OFFSET_PADDING_PX
+      );
+    };
+
+    const computeMissingSectionTops = () => {
+      for (const id of SECTION_ORDER) {
+        if (typeof sectionTopByIdRef.current[id] === "number") continue;
+        const el = document.getElementById(id);
+        if (!el) continue;
+        sectionTopByIdRef.current[id] = el.getBoundingClientRect().top + window.scrollY;
+      }
+    };
+
     let ticking = false;
     const sync = () => {
       ticking = false;
       const nextScrolled = window.scrollY > 16;
-      const nextActive = getActiveSectionId();
+
+      computeMissingSectionTops();
+
+      const spyLineY = window.scrollY + headerOffsetPxRef.current;
+      let nextActive: SectionId | null = null;
+      for (const id of SECTION_ORDER) {
+        const top = sectionTopByIdRef.current[id];
+        if (typeof top !== "number") continue;
+        if (top <= spyLineY) nextActive = id;
+      }
+
       setScrolled((prev) => (prev === nextScrolled ? prev : nextScrolled));
       setActiveSectionId((prev) => (prev === nextActive ? prev : nextActive));
     };
+
     const onScrollOrResize = () => {
       if (!ticking) {
         ticking = true;
         requestAnimationFrame(sync);
       }
     };
+
+    const onResize = () => {
+      sectionTopByIdRef.current = {};
+      measureHeaderOffset();
+      onScrollOrResize();
+    };
+
+    measureHeaderOffset();
+    computeMissingSectionTops();
     sync();
+
     window.addEventListener("scroll", onScrollOrResize, { passive: true });
-    window.addEventListener("resize", onScrollOrResize, { passive: true });
+    window.addEventListener("resize", onResize, { passive: true });
     return () => {
       window.removeEventListener("scroll", onScrollOrResize);
-      window.removeEventListener("resize", onScrollOrResize);
+      window.removeEventListener("resize", onResize);
     };
   }, []);
+
+  useEffect(() => {
+    const headerHeight = headerRef.current?.getBoundingClientRect().height;
+    headerOffsetPxRef.current = Math.round(
+      (headerHeight ?? DEFAULT_SCROLL_SPY_OFFSET_PX) + HEADER_OFFSET_PADDING_PX
+    );
+  }, [scrolled]);
 
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "";
@@ -132,6 +171,7 @@ export function SiteHeader() {
   return (
     <>
       <header
+        ref={headerRef}
         className={cn(
           "sticky top-0 z-50 w-full transition-[padding] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)]",
           scrolled ? "px-3 pt-2.5 sm:px-6 sm:pt-4" : "border-b border-transparent"
