@@ -59,15 +59,13 @@ export function ContactGlowField({
             "placeholder:text-zinc-600",
             "transition-[border-color,background-color] duration-200",
             "focus:border-gold/35 focus:bg-zinc-950/80 focus:outline-none",
-            error && "border-red-500/40"
+            error && "border-red-500/40",
           ),
           onFocus: () => setFocused(true),
           onBlur: () => setFocused(false),
         })}
       </motion.div>
-      {hint && !error && (
-        <p className="text-xs text-zinc-600">{hint}</p>
-      )}
+      {hint && !error && <p className="text-xs text-zinc-600">{hint}</p>}
       {error && <p className="text-xs text-red-400">{error}</p>}
     </div>
   );
