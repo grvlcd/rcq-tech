@@ -33,8 +33,12 @@ export function ContactForm({ inView }: ContactFormProps) {
   const [status, setStatus] = useState<"idle" | "sending" | "sent">("idle");
   const [showRequiredHint, setShowRequiredHint] = useState(false);
   const allRequiredFilled =
-    Boolean(name.trim()) && Boolean(email.trim()) && Boolean(description.trim());
+    Boolean(name.trim()) &&
+    Boolean(email.trim()) &&
+    Boolean(description.trim());
   const visibleRequiredHint = showRequiredHint && !allRequiredFilled;
+
+  const WEBHOOK = process.env.NEXT_PUBLIC_N8N_INQUIRY_WEBHOOK_URL!;
 
   async function handleSubmit(e: FormEvent) {
     e.preventDefault();
@@ -42,7 +46,27 @@ export function ContactForm({ inView }: ContactFormProps) {
       setShowRequiredHint(true);
       return;
     }
+
+    const formData = {
+      name,
+      email,
+      service,
+      budget,
+      description,
+    };
+
     setShowRequiredHint(false);
+
+    try {
+      await fetch(WEBHOOK, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+    } catch {
+      /* same UX as static site */
+    }
+
     setStatus("sending");
     await new Promise((r) => setTimeout(r, 900));
     setStatus("sent");
@@ -58,7 +82,7 @@ export function ContactForm({ inView }: ContactFormProps) {
       <div
         className={cn(
           "relative rounded-3xl border border-white/[0.07] bg-zinc-950/30 p-[1px]",
-          "shadow-[0_0_0_1px_rgba(255,255,255,0.03)_inset,0_24px_80px_-32px_rgba(0,0,0,0.7)]"
+          "shadow-[0_0_0_1px_rgba(255,255,255,0.03)_inset,0_24px_80px_-32px_rgba(0,0,0,0.7)]",
         )}
       >
         <MagicCard
@@ -206,7 +230,10 @@ export function ContactForm({ inView }: ContactFormProps) {
                         maxLength={DESC_MAX}
                         value={description}
                         onChange={(e) => setDescription(e.target.value)}
-                        className={cn(field.className, "min-h-[128px] resize-y")}
+                        className={cn(
+                          field.className,
+                          "min-h-[128px] resize-y",
+                        )}
                       />
                     )}
                   </ContactGlowField>
@@ -232,7 +259,7 @@ export function ContactForm({ inView }: ContactFormProps) {
                         "bg-gold text-zinc-950",
                         "shadow-[0_0_0_1px_rgba(255,255,255,0.12)_inset,0_4px_24px_rgba(196,154,0,0.35)]",
                         "transition-[transform,box-shadow,filter] hover:brightness-105 disabled:opacity-60",
-                        "focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold"
+                        "focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold",
                       )}
                     >
                       {status === "sending" ? (
